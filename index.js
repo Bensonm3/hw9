@@ -10,11 +10,10 @@ newteam = 0;
 
 
 const writeFileAsync = util.promisify(fs.writeFile);
-const appendFileAsync = util.promisify(fs.appendFile);
 
 let teamArray = [];
 let teamstr = ``;
-
+// runs all the functions in the correct order
 async function runApp() {
     try {
          await userQuery()
@@ -30,12 +29,13 @@ async function runApp() {
             let finalHTML = await html.generateHTML(teamstr)
                 
     
-            console.log("here is the team string  "+teamstr)
+            
     
-             //call generate function to generate the html template literal
+             
     
-             //write file 
+             //writes the file 
             await writeFileAsync("./output/index.html", finalHTML)
+            console.log("File written, check output folder");
         
          
 
@@ -45,7 +45,7 @@ async function runApp() {
     }
 
 };
-
+// Takes the User input
 async function userQuery(){
     let addTeam = ""; 
     do{
@@ -109,7 +109,6 @@ async function userQuery(){
                         )
                         const engineer = new Engineer(employee.Name, employee.Email, ID++, specialty.Github);
                         teamArray.push(engineer);
-                        console.log(teamArray.length);
                     }
                     else if(employee.Type ==="Intern"){
                         specialty = await inquirer.prompt(
@@ -163,7 +162,7 @@ async function userQuery(){
         }
     } 
         } while (newteam === 0){
-            console.log("restarting Team build");
+            console.log("Creating HTML");
         }
 
         
